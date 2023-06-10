@@ -2,7 +2,7 @@ Algorithm:
 I would set 2 pointers: left pointer and right pointer which started from the endpoints of arrays.Then, we will sum two pointers' values and
 compared with target value. Then if sum is smaller than the target, I would increse the left pointers. If sum is bigger than the trarget, I would decrease 
 the right pointers. If we found sum is euqal to target, we will found the pair and output their positions.
-
+![Image text](images/167sumII.png) 
 
 class Solution {
     public int[] twoSum(int[] numbers, int target) {
