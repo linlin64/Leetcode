@@ -1,0 +1,47 @@
+26. Remove Duplicates from Sorted Array
+I would set 2 pointers(fast and slow). Then if fast value!=slow value, it is means the value is not duplicate, then we will increase slow pointer to 
+count the number of non-duplicate value.
+
+Method1:
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        int fast=1;
+        int slow=0;
+        int result=0;
+        nums[slow]=nums[0];
+        slow=1;
+        for(fast=1;fast<nums.length;fast++)
+        {
+            if(nums[fast-1]!=nums[fast])
+            {
+                nums[slow]=nums[fast];
+                slow++;
+            }
+        }
+        result=slow;
+        return result;
+    }
+}
+
+Method2:
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        int fast=1;
+        int slow=0;
+        int n=nums.length;
+        int result=0;
+
+        while(fast<n)
+        {
+            if(nums[slow]!=nums[fast])
+            {
+                slow++;
+                nums[slow]=nums[fast];
+                
+            }
+            fast++;
+        }
+        result=++slow;
+        return result;
+    }
+}
