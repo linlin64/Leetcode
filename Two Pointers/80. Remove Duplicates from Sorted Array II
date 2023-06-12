@@ -1,0 +1,49 @@
+80. Remove Duplicates from Sorted Array II:
+Input: nums = [1,1,1,2,2,3]
+Output: 5, nums = [1,1,2,2,3,_]
+
+Input: nums = [0,0,1,1,1,1,2,3,3]
+Output: 7, nums = [0,0,1,1,2,3,3,_,_]
+
+First, we will set base case: when the size of nums array <3, we will return. 
+
+Secondly, for n>2:
+
+we will set two pointers(fast and slow) and traver all values of fast pointers. There are 2 situation: nums[fast]==nums[slow] and nums[fast]!=nums[slow].
+When the value of fast pointer is not equal to value of slow pointer, we will assign the value of fast pointer into value of 
+slow+1 pointer,if counter bigger than 1, it means it disppear more than 2 duplicated value,we will only move the fast pointer to the right. When the nums[fast]!=nums[slow] pointer,
+we will set counter=0, then assign the value of fast pointer into the element of slow+1 pointer
+
+class Solution {
+    public int removeDuplicates(int[] nums) {
+       int n=nums.length;
+       //base case
+       if(n<3)
+       {
+           return n;
+       }
+
+       int fast=1;
+       int slow=0;
+       int counter=0;
+
+       while(fast<n)
+       {
+           if(nums[fast]==nums[slow] && counter<1)
+           {
+               counter++;
+               slow++;
+               nums[slow]=nums[fast];
+           }
+           else if(nums[fast]!=nums[slow])
+           {
+               counter=0;
+               slow++;
+               nums[slow]=nums[fast];
+           }
+           fast++;
+       }
+            
+        return slow+1;
+    }
+}
