@@ -1,6 +1,6 @@
 26. Remove Duplicates from Sorted Array
 I would set 2 pointers(fast and slow). Then if fast value!=slow value, it is means the value is not duplicate, then we will increase slow pointer to 
-count the number of non-duplicate value.
+count the number of non-duplicate value. We also change the first k elements in the arrays to save in-place non-duplicate value
 
 Method1:
 class Solution {
