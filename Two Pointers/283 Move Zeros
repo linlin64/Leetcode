@@ -1,4 +1,6 @@
-I would set 2 pointers，
+I would use 2 pointers。 Fast pointer tranverse all of elements of array. When we find value of fast pointer is non-zero, we will assign the 
+value of fast pointer into elements of slow pointers.So slow pointer would keep all of non-zeros elements in-place order. Then we will complete
+all the zeros after the non-zero values(which after slow pointer)
 
 
 class Solution {
