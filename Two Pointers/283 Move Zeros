@@ -1,0 +1,22 @@
+class Solution {
+    public void moveZeroes(int[] nums) {
+        //算法：双指针。
+        /* fast表示遍历原数组的指针，slow是新数组的指针。（实际没有开辟新数组空间，两个指针都是在同一个数组上进行操作）
+        */
+        int slow=0;//初始化新数组指针index=0
+        for(int fast=0;fast<nums.length;fast++)//fast指针遍历原数组
+        {
+            if(nums[fast]!=0)//当当前fast指针的指向的值不等于0
+            {
+                nums[slow]=nums[fast];//把当前不为0的值赋值给新数组
+                slow++; //新数组指针向右移动一个位置。
+            }
+             
+        }
+        for(int i=1;i<=nums.length-slow;i++)//0的数量=（nums.length-slow(新数组的数量)）
+        {
+            nums[nums.length-i]=0;//在新数组的slot之后补齐原数组数量的0
+        }
+       
+    }
+}
