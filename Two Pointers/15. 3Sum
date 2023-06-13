@@ -1,5 +1,12 @@
-15. 3Sum
+15. 3Sum n^2 time complexity.
 
+ Firstly, we will sort array to make ascending numbers. we have 2 for loop. The outer loop traverses all of elements(but ignore duplicate element), the inner loop will have
+ 2 pointers in 2 sides, left pointer start from i+1, right pointer start from n-1. Then we will do a while to find sum=0;
+ if sum of 3 numbers is 0, we will save them into list,then move left and right pointer, and then we will check if next pointer's value is same with current 
+ pointer's value,if yes. That means the number is duplicate, hence,we will skip this number. 
+ If sum<0, which means we need to move left pointer to the right for increasing the sum. If sum>0, which means we need to move right pointer
+ to the left for decreasing the sum.  After traversing all of elements(except for duplicates number), we will find the list which are combination
+ (sum=0)
 
 
 //双指针方法  主要难点在于去重
