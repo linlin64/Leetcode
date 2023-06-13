@@ -1,0 +1,40 @@
+11. Container With Most Water
+We will set left and right pointer,they are from two sides.
+Rectangule formula= length* width.
+We know the length is equal to (right-1-left),hence, we would find the min width from 2 lines.
+Then, we will compare 2 elements and choose the smaller one as width.
+Then, compare current area with the current maxValue. If the current area is larger, then upadate maxValue.
+Then we will hold the pointer which has the biggerst width, and move the other pointer which has the smallest width. Then after we traverse all lines, we will return the best maxArea.
+
+公式：S(i,j) = min(ai, aj) * (j-i)，容器不能倾斜，求容纳最多水的两个线组合。
+
+//用双指针。
+//左右指针分别从两端出发，先算他们之间的长度，然后再从他们两的高度中取最矮的一个算。
+//然后代入算出面积与之前的MaxValue进行比较。如果更大则更新，否则不更新。
+//接着比较两端的高度，当左边低于右边，则要把左指针向右移动（因为next left pointer 的
+//可能会比current left pointer更长，面积更大。
+//如果右边高度更低，则要把右指针向左移动。
+//time complexity O(n)
+
+class Solution {
+    public int maxArea(int[] height) {
+        int left=0;
+        int right=height.length-1;
+        int maxArea=Integer.MIN_VALUE;
+
+        while(left!=right)
+        {
+            int area= (right-left)*Math.min(height[left],height[right]);
+            maxArea=Math.max(area,maxArea);
+            if(height[left]>=height[right])
+            {
+                right--;
+            }
+            else
+            {
+                left++;
+            }
+        }
+        return maxArea;
+    }
+}
