@@ -2,7 +2,8 @@
 We will have two pointers(left and right pointer), left pointer started from the first element of array, the right pointer started from the last element of array. We will traverse all 
 element and compared with their squares and insert value into new array from the end to the start(which means value from biggest to the smallest).
 If left value's square is larger than the right values's square,we will insert it into the new array(Remember, Insertion opertion from the end of new array), then move left pointer.
-Otherwise, insert rightvalue into the new array, then move the right pointer.
+Otherwise, insert rightvalue into the new array, then move the right pointer. Time Complexity O(n). 
+If we use Arrays.sort(),the time complexity is O(nlogn).
 
 
 
