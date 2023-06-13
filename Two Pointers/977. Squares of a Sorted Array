@@ -1,0 +1,65 @@
+977. Squares of a Sorted Array
+We will have two pointers(left and right pointer), left pointer started from the first element of array, the right pointer started from the last element of array. We will traverse all 
+element and compared with their squares and insert value into new array from the end to the start(which means value from biggest to the smallest).
+If left value's square is larger than the right values's square,we will insert it into the new array(Remember, Insertion opertion from the end of new array), then move left pointer.
+Otherwise, insert rightvalue into the new array, then move the right pointer.
+
+
+
+class Solution {
+    public int[] sortedSquares(int[] nums) {
+        int left=0;
+        int right=nums.length-1;
+        int n=nums.length;
+        int result[]=new int[n];
+        int index=n;
+
+        while(index>0)
+        {
+            if((int)Math.pow(nums[left],2)>=(int)Math.pow(nums[right],2))
+            {
+                result[index-1]=(int)Math.pow(nums[left],2);
+                left++;
+            }
+            else if((int)Math.pow(nums[left],2)<(int)Math.pow(nums[right],2))
+            {
+                result[index-1]=(int)Math.pow(nums[right],2);
+                right--;
+            }
+            index--;
+        }
+        return result;
+
+    }
+}
+
+class Solution {
+    public int[] sortedSquares(int[] nums) {
+        //双指针:另创建一个新数组，把原数组从两端末尾比较，然后排序到新数组末端。然后不停往内延展。
+        int left=0; //原数组左端起点。
+        int right=nums.length-1;//原数组末端起点。
+        int position=nums.length-1; //新数组的末端起点(因为是non-decreasing 顺序排列新数组。所以要从原数组两端分别比较绝对值大小。大的那个值将从新数组的末端插入，然后再向左移动。)
+        int[] nums2=new int[nums.length];//新建新数组，大小和原数组一样。
+        
+        
+       for(int i=0;i<nums.length;i++) //for循环遍历原数组，比较两端绝对值的大小。（因为存在左端是负数右端是正数的情况）
+        {
+            int maxValue=0; //原数组的绝对值比较出来的最大的数将赋值给maxValue，方便插入到新数组中。
+            if(Math.abs(nums[left])<=Math.abs(nums[right]))//如果原数组右端的绝对值大。
+            {
+                maxValue=(int)(Math.pow(nums[right],2));//原数组右端点的平方值赋值给maxValue
+                nums2[position]=maxValue;//新数组当前节点将插入maxValue
+                right--;//右端节点指针向左移动一个位置。
+            }
+            else    //如果原数组左端的绝对值大。
+            {   
+                maxValue=(int)(Math.pow(nums[left],2));//原数组左端点的平方值赋值给maxValue
+                nums2[position]=maxValue;//新数组当前节点将插入maxValue
+                left++;//右端节点指针向左移动一个位置。
+            }
+            position--;//新数组插入一个值后，要向左移动一个指针。
+        }
+        return nums2;//返回最新的数组
+        
+    }
+}
