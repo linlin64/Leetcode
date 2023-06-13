@@ -1,0 +1,60 @@
+15. 3Sum
+
+
+
+//双指针方法  主要难点在于去重
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        
+        List<List<Integer>> list=new ArrayList<List<Integer>>(); //创建一个list用来最后返回
+        Arrays.sort(nums);//先排序数组（从小到大排序）
+        int left,right,sum;//left指针和right指针。sum就是当前三个数之和
+        
+        for(int i=0;i<nums.length;i++)  //遍历循环数组里的每个数，然后每个数匹配对应的第二和第三个数使得总和=0
+        {
+           if(i>0 && nums[i]==nums[i-1]) //因为left和right永远都在i的右边，所以如果是nums[i]==nums[i+1]就会数组里重复的元素pass了 ❌。但是如果是nums[i]==nums[i-1]就会把重复的数组给pass掉。这一步是在给a去重。
+           {
+               continue;
+           }
+            
+               left=i+1; //如果没遇到重复数组，则开始正常执行left和right指针 left是当前数组右边一位，right是数组末尾
+               right=nums.length-1;
+           
+            
+            while(left<right) //因为left和right不能相遇，所以设置这个退出条件
+            {
+                sum=nums[i]+nums[left]+nums[right];//当前三个指针的值之和
+                if(sum>0)//由于是已经从小到大排序好的数组。所以sum>0，是要right往左移动（right越往左，数越小)
+                {
+                    right--;
+                }
+                else if(sum<0)//由于是已经从小到大排序好的数组。所以sum<0，是要left往右移动（right越往右，数越大)
+                {
+                    left++;
+                }else//当sum=0的情况，就把当前三个数添加进result数组里。
+                {
+                    ArrayList<Integer> result = new ArrayList<Integer>();
+                    result.add(nums[i]);
+                    result.add(nums[left]);
+                    result.add(nums[right]);
+                    list.add(result);//然后再把完整的一个数组添加到list里
+                    
+                    while(left<right && nums[left]==nums[left+1]) //然后要判断left去重情况，比如如这一组数：1 -1 -1 -1 2 2 2，假如left是第二个数-1。然后left往右移动还是-1.所以要一直遍历到left不重复为止
+                    {
+                        left++;
+                    }
+                     while(left<right && nums[right]==nums[right-1])//right和\U0001f446left也是同理。
+                    {
+                        right--;
+                    } 
+                    
+                    left++; //然后left和right至少要有一个移动，指针才能继续遍历sum情况。
+                    right--;
+                }
+                
+            }
+            
+        }
+        return list;
+    }
+}
