@@ -1,0 +1,42 @@
+259 sum smaller time complexity o(n^2)
+1.The array should be sorted as non-decreasing order
+2. we would traverse all the elments of the array(because the combination has 3 numbers, so this operation will go through to find suitable
+first element of combination)
+3. we will set two pointer for each iteration(left pointer and right pointer)
+4. if the sum of nums[i]+nums[left]+nums[right] <target, we will plus right-left into counter. This is because if the sum is smaller than
+target and the array is acending order, the elements between the current left pointer and right pointer will be satisfied the condition 
+which  sum is smaller than target.  Then we will move the left pointer to the right to find the other possible combination(which means 
+this operation will make the first element and second element fixed, and find the possible third elemnent of combination)
+5.If nums[i]+nums[left]+nums[right] >target, we will move the right pointer to decrease the sum in order to find possible combination.
+6.After traverse all elements, we will return the counter.
+
+
+class Solution {
+    public int threeSumSmaller(int[] nums, int target) {
+
+        Arrays.sort(nums);
+        int counter=0;
+        int n=nums.length;
+
+        for(int i=0;i<n;i++)
+        {
+            int left=i+1; int right=n-1;
+            while(left<right)
+            {
+                
+                if(nums[i]+nums[left]+nums[right]<target)
+                {
+                    counter+=right-left;
+                    left++;
+                }
+                else
+                {
+                    right--;
+                }
+            }
+        }
+        
+        return counter;
+    }
+    
+}
