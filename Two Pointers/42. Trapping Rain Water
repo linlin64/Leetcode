@@ -1,0 +1,52 @@
+42. Trapping Rain Water
+Operation:
+1.we need to find the global maximum height for this array.
+2.Then we will divided the graph into 2 parts, the front part which is between 0 to max-1 index, the back part which is between max+ to
+n-1 index. For the "max" index, it should trap 0 height,because it is the highest for the graph.
+3.For 0 to max-1 index, we will traverse each element, for each iteration,we find the highest height which is on the left side(include current height of 
+column)of current column,and compare left max height with the global max height("max"will be on the right side of current column),then we 
+will choose the min one from both, and use its height to minus current height so that we could get the unit of trapped water for current column.
+4.For max+1 to n-1 index, it has same way with above, we will traverse each element, for each iteration,we find the highest height which is on the right side(include current height of 
+column)of current column,and compare current max height with the global max height("max"will be on the left side of current column),then we 
+will choose the min one from both, and use its height to minus current height so that we could get the unit of trapped water for current column.
+5. For each iteration above, we will sum the trapped water units and return value after iteration over.
+
+
+//time complexity:O(n), space:O(1)
+class Solution {
+    public int trap(int[] height) {
+        int max=0;
+        int n=height.length;
+        for(int i=0;i<n;i++)
+        {
+            if(height[max]<height[i]){  //先获取这个数组中最高的柱子的Index
+                 max=i;
+            }
+        }
+
+        int sum=0;
+        int leftMax=0;
+        for(int i=0;i<max;i++)  //遍历最高柱子的左边的元素，对于每个元素查找它们左边的历史最高柱子并更新，
+        然后把current index左边max height和右边（也就是全局max）比较，
+        取两个中最小高度的柱子的结果减去当前柱子的高度可以获得它当前current柱子能trap到多少unit的水。
+        {
+            if(leftMax<height[i])
+            {
+                leftMax=height[i];
+            }
+            sum+=Math.min(height[max],leftMax)-height[i];
+        }
+        int rightMax=0;
+        for(int i=n-1;i>max;i--)  //与上面同理，遍历最高柱子的右边的元素，对于每个元素查找它们左边的历史最高柱子并更新，
+        然后把current index右边max height和左边（也就是全局max）比较，
+        取两个中最小高度的柱子的结果减去当前柱子的高度可以获得它当前current柱子能trap到多少unit的水。
+        {
+            if(rightMax<height[i]){
+                rightMax=height[i];
+            }
+             sum+=Math.min(height[max],rightMax)-height[i];
+
+        }
+        return sum;
+    }
+}
