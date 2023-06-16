@@ -1,0 +1,47 @@
+We will traverse element using cur pointer until encounter right pointer which means all elements in order.
+And we set left pointer and right pointer. left pointer is for "0". right pointer is for "2". The pivot value is 1.
+There are 3 situation:
+when current value is "1", we will move current pointer to the next.
+when current value is "2", we will swap current value with the right pointer value, which means we will put 2 into the right side of "1", 
+then we move pointer to the nex.but we don't move current pointer.This is because the current value should be check again when next iteration,
+possible current value after swap "2" may be "0" or "1".
+When current value is "0",we will swap current value with the left pointer value,which means will put 0 into the left side of "1",
+then we move the left pointer and move the current pointer.
+after all iteration, we will get a new array.
+
+
+class Solution {
+    public void sortColors(int[] nums) {
+       int n=nums.length;
+       int l=0;     //left pointer, use it to swap 0 into the left side of "1"
+       int r=n-1;  //right pointer, use it to swap 2 into the right side of "1"
+       int cur=0; // current index
+
+       while(cur<=r)  //traverse all of elements until current pointer encounters right pointer, we set 1 as pivot
+       {
+           if(nums[cur]==2) //if current value equal 2 
+           {
+               swap(nums,cur,r);  //we will swap 2 with the right pinter
+               r--;                 //right pointer will move to next left 
+                                //we do not move current, because after swap, 
+                                //current value may be 1 or 2, so we also need to check current value when next iteration, if current value is 0, we will swap it with the left pointer value to make 0 on the left side of "1".
+           }
+           else if(nums[cur]==0) // if current value is 0
+           {
+               swap(nums,cur,l);  //we will swap 0 with the right pointer to make "0" on the left side of "1".
+               l++; //Then we move left pointer into right
+               cur++;  //current also move to the next, because current would be 0, we don't need to check again.
+           }
+           else
+           {
+               cur++;   //if nums[cur]==1,we don't need to do change,we will move to next. So left pointer is control"0",right pointer control "2"
+           }
+       }
+      
+    }
+    private void swap(int[] nums, int i, int j) { //swap fuction
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+}
