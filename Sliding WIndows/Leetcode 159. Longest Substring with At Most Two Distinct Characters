@@ -1,0 +1,54 @@
+Leetcode 159. Longest Substring with At Most Two Distinct Characters 
+Operation:
+1.Convert s into char Array.
+2.If array is smaller than 3, we could directly return array.length;
+3.Then we will set 2 pointer for sliding window: left and right;
+4.Create a new HashMap
+5.Then we will use right pointer to traverse all elements.
+6. In a while loop, 
+   1. we will count the number of letter(plus current right pointer,
+   2. Then we will use while loop to check if the size of array is bigger than 2,
+          we will contract the window (reduce the counter of letter under the left pointer).
+          (Then we will check if the counter is 0, we will remove the current left letter in the map.)
+          Then move left pointer.
+   3. After while loop, we will compare the length with the history length. If it is bigger, than we will update the history max length.
+Then, we expand the window.(right++)
+
+
+7.After traverse all elemnents, we willr return maxLength.
+
+
+class Solution {
+    public int lengthOfLongestSubstringTwoDistinct(String s) {
+
+        char[] arr=s.toCharArray();
+        int n= arr.length;
+        if(n<3)
+        {
+            return n;
+        }
+
+        int left=0;
+        int right=0;
+        int maxLen=0;
+        Map<Character,Integer> counter =new HashMap<>();
+        
+        while(right<n)
+        {
+              counter.put(arr[right],counter.getOrDefault(arr[right],0)+1);
+           while(counter.size()>2)
+            {
+               counter.put(arr[left],counter.get(arr[left])-1);
+               if(counter.get(arr[left])==0)
+               {
+                   counter.remove(arr[left]);
+               }
+               left++;
+            }
+            maxLen=Math.max(maxLen,right-left+1);
+            right++;
+
+        }
+        return maxLen;
+    }
+}
