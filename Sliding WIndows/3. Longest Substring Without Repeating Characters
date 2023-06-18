@@ -1,0 +1,35 @@
+3. Longest Substring Without Repeating Characters
+
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        //base case
+        char[] arr =s.toCharArray();
+        int n=arr.length;
+        if(n<2)
+        return n;
+
+        //set left and right pointer to make sliding window
+        int left=0;
+        int right=0;
+        int maxLen=0;
+        Map<Character,Integer> counter=new HashMap<>();
+
+        while(right<n)//traverse all elements by using the right pointer
+        {
+            //add current element
+            counter.put(arr[right],counter.getOrDefault(arr[right],0)+1);
+            while(counter.size()!=right-left+1)//if sliding window happens repeating characters
+            {
+                counter.put(arr[left],counter.get(arr[left])-1);//we will reduce the number of letter for current left pointer.
+                if(counter.get(arr[left])==0) //after reduce the number, we should check if the the current left letter is exit. if not, we will remove it from the hashMap.
+                {
+                    counter.remove(arr[left]);
+                }
+                left++;//Synchronize map operations to shrink the window
+            }
+            maxLen=Math.max(maxLen,right-left+1);//After above while loop, the current substring will have non-repeating letter, so we will compare its length with history max length, and update.
+            right++;//Then expand the window to find the next possible max length
+        }
+        return maxLen;//After traverse all elements, we will return the maxLen.
+    }
+}
