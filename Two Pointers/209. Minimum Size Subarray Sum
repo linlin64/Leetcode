@@ -1,0 +1,37 @@
+209. Minimum Size Subarray Sum
+1. Set two pointer: left and right pointer to do sliding windows.
+2.If the sum of target is bigger than target:
+we will compared the length with history min Length, if it is more smaller, we will update the history min Length.
+Then we will do while loop to continuously contract the window(move left++). Until the sum is smaller than target, we will 
+expand window(right++)
+
+3.After traverse all elements, we will return minLength.
+
+class Solution {
+    public int minSubArrayLen(int target, int[] nums) {
+    int left=0;
+    int right=0;
+    int sum=0;
+    int minLength=Integer.MAX_VALUE;
+
+    while(right<nums.length)
+    {
+        sum+=nums[right];
+        while(sum>=target)
+        {
+            minLength=Math.min(minLength,right-left+1);
+            sum-=nums[left];
+            left++;
+            
+        }
+        right++;
+    }
+    if(minLength==Integer.MAX_VALUE)
+    {
+        return 0;
+    }
+    return minLength;
+
+
+    }
+}
