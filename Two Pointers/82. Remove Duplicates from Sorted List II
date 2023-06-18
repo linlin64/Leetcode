@@ -1,4 +1,7 @@
 82. Remove Duplicates from Sorted List II
+82. Remove Duplicates from Sorted List II
+We would set two pointer, one pointer which traverse all nodes for finding duplicate nodes, if found, we will remove it.
+Another pointer is dummy, we will use it to save all unique nodes.
 
 /**
  * Definition for singly-linked list.
