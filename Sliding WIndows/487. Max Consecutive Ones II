@@ -1,0 +1,40 @@
+487. Max Consecutive Ones II
+
+We will set a sliding window. If the counter(0's) is bigger than 1, we will shrink the window(left++);
+Else, we will compare the maxLen and expand the window(right++).Before shrink or expand window, we should count the 0's.
+
+class Solution {
+    public int findMaxConsecutiveOnes(int[] nums) {
+        
+        //base case
+        if(nums.length<2)
+        {
+            return nums.length;
+        }
+        int n=nums.length;
+        int maxLen=0;
+        int counter=0;
+        int left=0;
+        int right=0;
+
+        while(right<n)
+        { 
+            if(nums[right]==0)
+            {
+                counter++;
+            }
+            while(counter>1)
+            {
+                if(nums[left]==0)
+                {
+                    counter--;
+                }
+                left++;
+            }
+            maxLen=Math.max(maxLen,right-left+1);
+            right++;
+            
+        }
+        return maxLen;
+    }
+}
