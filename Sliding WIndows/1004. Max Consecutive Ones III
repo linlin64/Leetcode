@@ -1,0 +1,39 @@
+1004. Max Consecutive Ones III
+ Same with 487.
+
+class Solution {
+    public int longestOnes(int[] nums, int k) {
+        //base case
+        if(nums.length<k)
+        {
+            return nums.length;
+        }
+
+        int n=nums.length;
+        int maxLen=0;
+        int counter=0;
+        int left=0;
+        int right=0;
+
+        while(right<n)
+        { 
+            if(nums[right]==0)
+            {
+                counter++;
+            }
+            while(counter>k)
+            {
+                if(nums[left]==0)
+                {
+                    counter--;
+                }
+                left++;
+            }
+            maxLen=Math.max(maxLen,right-left+1);
+            right++;
+    }
+        return maxLen;
+
+}
+
+}
