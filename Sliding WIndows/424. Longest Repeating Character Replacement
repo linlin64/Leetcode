@@ -1,0 +1,41 @@
+424. Longest Repeating Character Replacement
+
+
+class Solution {
+    public int characterReplacement(String s, int k) {
+        //base case
+        char[] nums = s.toCharArray();
+        if(nums.length<k)
+        {
+            return nums.length;
+        }
+
+        int maxLen=0;
+        int n=nums.length;
+        int left=0;
+        int right=0;
+        int freq=0;
+        Map <Character,Integer> count = new HashMap<>();
+        
+        while(right<n)
+        {
+            count.put(nums[right],count.getOrDefault(nums[right],0)+1);
+            freq=Math.max(freq,count.get(nums[right]));
+            
+            while(right-left+1-freq>k)
+            {
+                count.put(nums[left],count.get(nums[left])-1);
+                if(count.get(nums[left])==0)
+                {
+                    count.remove(nums[left]);
+                }
+                left++;
+            }
+            maxLen=Math.max(maxLen,right-left+1);
+            right++;
+
+        }
+        return maxLen;
+
+    }
+}
