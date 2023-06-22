@@ -26,7 +26,9 @@ class Solution {
                 counter++;//就算counter
             }
             while(counter==s1_arr.length)//当counter==s1.size时候，
-            //则expand窗口action停止。然后目前right位置代表了当前substrin刚好包含了s1的字符串。接下来我们要update minLen。然后我们要缩小窗口（left++)，然后每缩小一次窗口，我们就要检查删除掉的那个窗口里是否包含了s1出现的字符，如果包含则counter--. 然后我们要不断地检查直到counter的数量等于s1.length的数量。如果删去当前的left里的数值，counter！=s1的话，则说明这时候的right-left+1才会是刚好包含ab。
+            //则expand窗口action停止。然后目前right位置代表了当前substrin刚好包含了s1的字符串。接下来我们要update minLen。
+然后我们要缩小窗口（left++)，然后每缩小一次窗口，我们就要检查删除掉的那个窗口里是否包含了s1出现的字符，如果包含则counter--. 
+然后我们要不断地检查直到counter的数量等于s1.length的数量。如果删去当前的left里的数值，counter！=s1的话，则说明这时候的right-left+1才会是刚好包含ab。
             {
                 int curLen=right-left+1;
                 minLen=Math.min(curLen,minLen);
