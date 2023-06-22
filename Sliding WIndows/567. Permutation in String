@@ -1,40 +1,44 @@
 567. Permutation in String
 
+
+
 class Solution {
-    public int characterReplacement(String s, int k) {
-        //base case
-        char[] nums = s.toCharArray();
-        if(nums.length<k)
+    public boolean checkInclusion(String s1, String s2) {
+        int[] arr=new int[128];//index是字符的ASCII码，value是frequency
+
+        int left=0; int right=0;//移动窗口的左右指针
+        char[] s1_arr=s1.toCharArray();//s1
+        char[] s2_arr=s2.toCharArray();//s2
+
+        for(char cur:s1_arr) //s1的字符出现次数存储进arr里
         {
-            return nums.length;
+            arr[cur]++;
         }
 
-        int maxLen=0;
-        int n=nums.length;
-        int left=0;
-        int right=0;
-        int freq=0;
-        Map <Character,Integer> count = new HashMap<>();
-        
-        while(right<n)
+        int minLen=Integer.MAX_VALUE;//minLen最后一定是等于s1的size
+        int counter=0;//用来计算s2的中出现s1
+
+        while(right<s2_arr.length)
         {
-            count.put(nums[right],count.getOrDefault(nums[right],0)+1);
-            freq=Math.max(freq,count.get(nums[right]));
-            
-            while(right-left+1-freq>k)
+            char cur=s2_arr[right];//right值赋值给cur
+            if(--arr[cur]>=0)//如果s2出现了s1中的字符，则减少arr中该字符的频率。
             {
-                count.put(nums[left],count.get(nums[left])-1);
-                if(count.get(nums[left])==0)
+                counter++;//就算counter
+            }
+            while(counter==s1_arr.length)//当counter==s1.size时候，
+            //则expand窗口action停止。然后目前right位置代表了当前substrin刚好包含了s1的字符串。接下来我们要update minLen。然后我们要缩小窗口（left++)，然后每缩小一次窗口，我们就要检查删除掉的那个窗口里是否包含了s1出现的字符，如果包含则counter--. 然后我们要不断地检查直到counter的数量等于s1.length的数量。如果删去当前的left里的数值，counter！=s1的话，则说明这时候的right-left+1才会是刚好包含ab。
+            {
+                int curLen=right-left+1;
+                minLen=Math.min(curLen,minLen);
+                char leftChar=s2_arr[left];
+                if(++arr[leftChar]>0)
                 {
-                    count.remove(nums[left]);
+                    counter--;
                 }
                 left++;
             }
-            maxLen=Math.max(maxLen,right-left+1);
             right++;
-
         }
-        return maxLen;
-
+        return minLen==s1_arr.length;
     }
 }
